@@ -409,18 +409,19 @@ async def handle_mcp(request, env) -> Response:
 # Internal helpers used by both direct API and MCP
 # ---------------------------------------------------------------------------
 def _detect_injection(text: str) -> tuple[bool, str]:
-  """ Defense-in-depth: strip high-confidence prompt-injection fragments while preserving legitimate surrounding user intent"""
+  
+  """Defense-in-depth: strip high-confidence prompt-injection fragments while preserving legitimate surrounding user intent."""
   cleaned = text or ""
   detected = False
 
 for pattern in INJECTION_PATTERNS:
-  cleaned, match_count = pattern.subn(" ", cleaned)
-  if match_count:
-    detected = True
+    cleaned, match_count = pattern.subn(" ", cleaned)
+    if match_count:
+       detected = True
 
-cleaned = re.sub(r"\s[2,}"," ", cleaned).strip()
+cleaned = re.sub(r"\s{2,}"," ", cleaned).strip()
 
-""" Return semantics """
+# Return semantics:
 # - (False, original-ish text): no injection markers matched.
 # - (True, non-empty text): mixed message; safe text remains after stripping.
 # - (True, ""): pure injection payload; caller should short-circuit safely.
