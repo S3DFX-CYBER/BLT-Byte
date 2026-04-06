@@ -409,7 +409,7 @@ async def handle_mcp(request, env) -> Response:
 # Internal helpers used by both direct API and MCP
 # ---------------------------------------------------------------------------
 def _detect_injection(text: str) -> tuple[bool, str]:
-  """ Defense-in-depth: strip high-confidence prompt-injection fragements while preserving legitimate surrounding user intent"""
+  """ Defense-in-depth: strip high-confidence prompt-injection fragments while preserving legitimate surrounding user intent"""
   cleaned = text or ""
   detected = False
 
