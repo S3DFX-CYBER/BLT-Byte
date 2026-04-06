@@ -571,6 +571,7 @@ async def _run_chat(env, message: str, history: list) -> dict:
         if not cleaned_message:
             return {"reply": "How can I help you with OWASP BLT today?"}
         message = cleaned_message
+        messages[-1]["content"] = message
 
     
     # Call Cloudflare AI using JS serialization to avoid proxy issues
