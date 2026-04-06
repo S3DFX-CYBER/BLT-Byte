@@ -562,7 +562,7 @@ async def _run_chat(env, message: str, history: list) -> dict:
     # Add current user message
     messages.append({"role": "user", "content": message})
 
-  # Defense-in-depth: silently handle inline injection text instead of explicit refusal.
+    # Defense-in-depth: silently handle inline injection text instead of explicit refusal.
     injection_detected, cleaned_message = _detect_injection(message)
     if injection_detected:
         print(
